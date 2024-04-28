@@ -2,7 +2,7 @@ import unittest
 from  src.domain.entities.CategoriaFactory import CategoriaFactory, _validar_nome_categoria
 
 class TestCategoriaFactory(unittest.TestCase):
-    def test_categoria_from_dict(self):
+    def test_criar_categoria_from_dict(self):
         dicionario_categoria = {
             'nome': 'refrigerante',
             'id': 1

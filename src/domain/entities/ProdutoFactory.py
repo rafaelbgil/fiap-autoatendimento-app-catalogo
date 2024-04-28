@@ -11,8 +11,7 @@ def _validar_nome_produto(nome: str, update=False) -> str:
 
 
 def _validar_descricao_produto(descricao: str) -> str:
-    if not descricao:
-        return descricao
+
     if len(descricao) > 1024:
         raise ValueError(
             'Excedido o tamanho máximo de caracteres para a descricao(max: 1024).')
@@ -20,8 +19,6 @@ def _validar_descricao_produto(descricao: str) -> str:
 
 
 def _validar_imagem_url_produto(imagem_url: str) -> str:
-    if not imagem_url:
-        return imagem_url
     if len(imagem_url) > 1024:
         raise ValueError(
             'Excedido o tamanho máximo de caracteres para a descricao(max: 1024).')
