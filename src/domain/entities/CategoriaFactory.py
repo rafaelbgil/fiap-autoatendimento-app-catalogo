@@ -1,4 +1,5 @@
 from .Categoria import Categoria
+from src.uitls.validar_uuid import validar_uuid
 
 def _validar_nome_categoria(nome: str) -> str:
     if len(nome) > 40:
@@ -18,6 +19,6 @@ class CategoriaFactory:
         
         id = None
         if 'id' in dicionario_categoria:
-            id = dicionario_categoria['id']
+            id = validar_uuid(dicionario_categoria['id'])
         
         return Categoria(nome=nome, id=id)

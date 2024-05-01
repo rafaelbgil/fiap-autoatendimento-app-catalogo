@@ -1,4 +1,6 @@
 from .Produto import Produto
+from .Categoria import Categoria
+from src.uitls.validar_uuid import validar_uuid
 
 
 def _validar_nome_produto(nome: str, update=False) -> str:
@@ -8,6 +10,14 @@ def _validar_nome_produto(nome: str, update=False) -> str:
     if len(nome) == 0 and update == False:
         raise AttributeError('Nome do produto definido como vazio.')
     return nome
+
+
+def _validar_categoria(categoria: Categoria):
+    if isinstance(categoria, Categoria):
+        return categoria
+    else:
+        raise TypeError(
+            'Campo categoria não recebeu um objeto do tipo categoria.')
 
 
 def _validar_descricao_produto(descricao: str) -> str:
@@ -35,7 +45,8 @@ def _validar_preco_produto(preco: int | float | str, update=False) -> float | No
     if isinstance(preco, str):
         return float(preco.replace(',', '.'))
     else:
-        raise AttributeError('Formato de preco inválido, utilize somente inteiros ou float.')
+        raise AttributeError(
+            'Formato de preco inválido, utilize somente inteiros ou float.')
 
 
 class ProdutoFactory:
@@ -44,7 +55,7 @@ class ProdutoFactory:
         id = None
         nome = None
         descricao = None
-        id_categoria = None
+        categoria = None
         preco = None
         imagem_url = None
 
@@ -58,9 +69,9 @@ class ProdutoFactory:
             imagem_url=dicionario_produto['imagem_url'])
 
         if 'id' in dicionario_produto:
-            id = dicionario_produto['id']
+            id = validar_uuid(dicionario_produto['id'])
 
-        if 'id_categoria' in dicionario_produto:
-            id_categoria = dicionario_produto['id_categoria']
+        if 'categoria' in dicionario_produto:
+            categoria = _validar_categoria(dicionario_produto['categoria'])
 
-        return Produto(id=id, nome=nome, descricao=descricao, preco=preco, imagem_url=imagem_url, id_categoria=id_categoria)
+        return Produto(id=id, nome=nome, descricao=descricao, preco=preco, categoria=categoria, imagem_url=imagem_url)
