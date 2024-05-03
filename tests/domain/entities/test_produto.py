@@ -1,6 +1,6 @@
 import unittest
-from src.domain.entities.ProdutoFactory import ProdutoFactory, _validar_descricao_produto, _validar_imagem_url_produto, _validar_nome_produto, _validar_preco_produto
 from src.domain.entities.CategoriaFactory import CategoriaFactory
+from src.domain.entities.ProdutoFactory import ProdutoFactory, _validar_descricao_produto, _validar_imagem_url_produto, _validar_nome_produto, _validar_preco_produto
 from src.domain.entities.Produto import Produto
 from uuid import uuid4
 

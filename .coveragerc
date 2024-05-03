@@ -1,0 +1,8 @@
+[run]
+omit =
+    ./tests/*
+    ./src/gateway/*
+    settings.py
+    asgi.py
+    admin.py
+    apps.py

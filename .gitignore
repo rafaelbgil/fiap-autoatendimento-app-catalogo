@@ -1,3 +1,5 @@
 *.pyc
 sql_app.db
 .coverage
+db.sqlite3
+migrations/
