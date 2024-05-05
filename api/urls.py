@@ -17,7 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
-    path('api/', view=views.index)
+    # Categoria
+    path('categoria/', views.CategoriaView.as_view()),
+    path('categoria/<str:id>/', views.CategoriaDetalhesView.as_view()),
+
+    # produto
+    path('produto/', views.ProdutoView.as_view()),
+    path('produto/<str:id>/', views.ProdutoDetalhesView.as_view()),
+    path('produto/findByCategoria/<str:categoria>/', views.ProdutoByCategoriaView.as_view()),
+
+    # Schema
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Swager and redoc:
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]

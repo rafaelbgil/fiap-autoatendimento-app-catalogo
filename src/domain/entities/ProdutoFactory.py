@@ -55,7 +55,7 @@ class ProdutoFactory:
         id = None
         nome = None
         descricao = None
-        categoria = None
+        id_categoria = None
         preco = None
         imagem_url = None
 
@@ -71,7 +71,7 @@ class ProdutoFactory:
         if 'id' in dicionario_produto:
             id = validar_uuid(dicionario_produto['id'])
 
-        if 'categoria' in dicionario_produto:
-            categoria = _validar_categoria(dicionario_produto['categoria'])
+        if 'id_categoria' in dicionario_produto:
+            id_categoria = validar_uuid(dicionario_produto['id_categoria'])
 
-        return Produto(id=id, nome=nome, descricao=descricao, preco=preco, categoria=categoria, imagem_url=imagem_url)
+        return Produto(id=id, nome=nome, descricao=descricao, preco=preco, id_categoria=id_categoria, imagem_url=imagem_url)

@@ -2,7 +2,9 @@
 omit =
     ./tests/*
     ./src/gateway/*
+    */migrations/*
     settings.py
     asgi.py
     admin.py
     apps.py
+    *Interface.py

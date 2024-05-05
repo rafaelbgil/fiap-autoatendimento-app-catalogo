@@ -7,25 +7,19 @@ from uuid import uuid4
 
 class TestProdutoFactory(unittest.TestCase):
     def test_criar_produto_from_dict(self):
-        categoria = CategoriaFactory.from_dict(
-            {
-                'id': uuid4(),
-                'nome': 'bebidas'
-            }
-        )
         dicionario_produto = {
             'id': uuid4(),
             'descricao': 'Descricao do produto de teste',
             'nome': 'Produto de Teste',
             'preco': 10.90,
             'imagem_url': 'http://teste.com.br/teste',
-            'categoria': categoria
+            'id_categoria': uuid4()
         }
         produto = ProdutoFactory.from_dict(
             dicionario_produto=dicionario_produto)
         self.assertTrue(produto)
         self.assertIsInstance(produto, Produto)
-        self.assertEqual(produto.categoria.nome, 'bebidas')
+        self.assertEqual(produto.id_categoria, dicionario_produto['id_categoria'])
         self.assertEqual(produto.nome, 'Produto de Teste')
 
     def test_validar_nome_produto_excecao_numero_caracteres(self):
@@ -58,6 +52,6 @@ class TestProdutoFactory(unittest.TestCase):
             'nome': 'Produto de Teste',
             'preco': 10.90,
             'imagem_url': 'http://teste.com.br/teste',
-            'categoria': 1
+            'id_categoria': 1
         }
-        self.assertRaises(TypeError, ProdutoFactory.from_dict, dicionario_produto) 
+        self.assertRaises(AttributeError, ProdutoFactory.from_dict, dicionario_produto)
