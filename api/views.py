@@ -205,7 +205,7 @@ class ProdutoByCategoriaView(APIView):
         Api para obter lista de produtos por categoria
         """
         try:
-            lista_produtos = UseCaseProduto.obter_lista_produto_por_categoria(repository_produto=ProdutoDaoOrm,
+            lista_produtos = UseCaseProduto.obter_lista_produto_por_categoria(xrepository_produto=ProdutoDaoOrm,
                                                                           categoria_nome=categoria)
         except Exception as erro:
             return Response(data={'status': 'erro', 'descricao': erro.__str__()}, status=status.HTTP_404_NOT_FOUND)
