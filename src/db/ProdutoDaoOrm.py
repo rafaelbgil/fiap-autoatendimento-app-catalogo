@@ -28,7 +28,7 @@ class ProdutoDaoOrm(ProdutoDaoInterface):
         if not produtos_queryset:
             return lista_produtos
 
-        for produto_orm in produtos_queryset.iterator():
+        for produto_orm in produtos_queryset:
             produto = ProdutoFactory.from_dict(dicionario_produto=produto_orm.__dict__)
             produto.id_categoria = produto_orm.categoria_id
             lista_produtos.append(produto)
