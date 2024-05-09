@@ -1,11 +1,13 @@
 import unittest
-from  src.domain.entities.CategoriaFactory import CategoriaFactory, _validar_nome_categoria
+from src.domain.entities.CategoriaFactory import CategoriaFactory, _validar_nome_categoria
 from uuid import uuid4
+
+
 class TestCategoriaFactory(unittest.TestCase):
     def test_criar_categoria_from_dict_sem_id(self):
         dicionario_categoria = {
             'nome': 'refrigerante',
-            'id' : None
+            'id': None
         }
         categoria = CategoriaFactory.from_dict(dicionario_categoria=dicionario_categoria)
         self.assertEqual(categoria.nome, 'refrigerante')
@@ -34,6 +36,3 @@ class TestCategoriaFactory(unittest.TestCase):
         nome = ''
 
         self.assertRaises(AttributeError, _validar_nome_categoria, nome)
-
-
-    

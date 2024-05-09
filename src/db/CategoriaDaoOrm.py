@@ -8,10 +8,12 @@ from uuid import UUID
 class CategoriaDaoOrm(CategoriaGateway):
     @staticmethod
     def obter_categoria(id: str) -> Categoria:
-        id_uuid = UUID(id)
-        if not isinstance(id_uuid, UUID):
+        try:
+            id_uuid = UUID(id)
+        except:
             raise AttributeError(
                 'Código de categoria inválido, favor informar um número.')
+
         try:
             categoria_queryset = CategoriaModel.objects.get(id=id_uuid)
         except:
@@ -48,7 +50,7 @@ class CategoriaDaoOrm(CategoriaGateway):
     def listar_categorias() -> list[Categoria]:
         categorias_queryset = CategoriaModel.objects.all()
         categorias = []
-        for categoria in categorias_queryset.iterator():
+        for categoria in categorias_queryset:
             categorias.append(CategoriaFactory.from_dict(
                 dicionario_categoria=categoria.__dict__))
 
