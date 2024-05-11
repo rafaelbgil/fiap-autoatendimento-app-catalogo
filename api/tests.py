@@ -6,3 +6,4 @@ from tests.db.test_ProdutoDaoOrm import *
 from tests.web.TestCategoriaView import *
 from tests.web.TestCategoriaDetalhesView import *
 from tests.web.TestProdutoByCategoriaView import *
+from tests.web.TestProdutoDetalhesView import *

@@ -33,6 +33,17 @@ class TestCategoriaDaoOrm(unittest.TestCase):
         self.assertTrue(retorno_remocao)
 
     @patch('src.db.CategoriaDaoOrm.CategoriaModel')
+    def test_adicionar_categoria(self, mock_categoria_model_save):
+        dicionario_categoria = {
+            "nome": "Bebidas",
+        }
+        categoria = CategoriaFactory.from_dict(dicionario_categoria=dicionario_categoria)
+        mock_categoria_model_save.save.return_value = None
+        retorno = CategoriaDaoOrm.adicionar_categoria(categoria)
+        self.assertIsInstance(retorno, Categoria)
+        
+
+    @patch('src.db.CategoriaDaoOrm.CategoriaModel')
     def test_listar_categorias(self, mock_categoria_model):
         categoria1 = CategoriaModel(nome="Bebidas", id='42f0ad6e-b5a2-4b40-940b-51d4c62a9b24')
         categoria2 = CategoriaModel(nome="Doces", id='42f0ad6e-b5a2-4b40-940b-51d4c62a9b25')
