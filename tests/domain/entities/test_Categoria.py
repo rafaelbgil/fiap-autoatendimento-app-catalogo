@@ -12,6 +12,14 @@ class TestCategoriaFactory(unittest.TestCase):
         categoria = CategoriaFactory.from_dict(dicionario_categoria=dicionario_categoria)
         self.assertEqual(categoria.nome, 'refrigerante')
 
+    def test_criar_categoria_uuid_invalido(self):
+        dicionario_categoria = {
+            'nome': 'refrigerante',
+            'id': 'dsadsadsa'
+        }
+        #categoria = CategoriaFactory.from_dict(dicionario_categoria=dicionario_categoria)
+        self.assertRaises(AttributeError, CategoriaFactory.from_dict, dicionario_categoria)
+
     def test_criar_categoria_from_dict_com_id(self):
         dicionario_categoria = {
             'nome': 'refrigerante',
@@ -36,3 +44,5 @@ class TestCategoriaFactory(unittest.TestCase):
         nome = ''
 
         self.assertRaises(AttributeError, _validar_nome_categoria, nome)
+
+

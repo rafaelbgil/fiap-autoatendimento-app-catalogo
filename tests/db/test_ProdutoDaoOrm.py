@@ -5,6 +5,8 @@ from src.db.ProdutoDaoOrm import ProdutoDaoOrm
 from api.models import Produto as ProdutoModel
 from api.models import Categoria as CategoriaModel
 from src.domain.entities.Produto import Produto
+from src.domain.entities.ProdutoFactory import ProdutoFactory
+from uuid import uuid4
 
 
 class TestProdutoDaoOrm(unittest.TestCase):
@@ -59,3 +61,39 @@ class TestProdutoDaoOrm(unittest.TestCase):
         self.assertIsInstance(lista_produtos[0], Produto)
         self.assertEqual(lista_produtos[0].nome, 'Coca Cola')
 
+    @patch('src.db.ProdutoDaoOrm.ProdutoModel')
+    def test_remove_produto_erro_produto_nao_encontrado(self, mock_produto_model):
+        mock_exception = Mock()
+        mock_exception.side_effect = Exception("Id de produto não encontrado.")
+
+        mock_produto_model.objects.get = mock_exception
+
+        self.assertRaisesRegexp(Exception, 'Id de produto não encontrado.', ProdutoDaoOrm.remover_produto,
+                                '6859a83f-7165-4515-a4f4-b061928b5136')
+
+    @patch('src.db.ProdutoDaoOrm.ProdutoModel')
+    def test_remove_produto_erro_remocao(self, mock_produto_model):
+        mock_response = Mock()
+        mock_response.delete.side_effect = Exception('Não foi possível remover o produto')
+        mock_produto_model.objects.get.return_value = mock_response
+
+        self.assertRaisesRegexp(Exception, 'Não foi possível remover o produto', ProdutoDaoOrm.remover_produto,
+                                '6859a83f-7165-4515-a4f4-b061928b5136')
+
+    @patch('src.db.ProdutoDaoOrm.ProdutoModel')
+    def test_remove_produto_sucesso(self, mock_produto_model):
+        self.assertTrue(ProdutoDaoOrm.remover_produto('6859a83f-7165-4515-a4f4-b061928b5136'))
+
+    @patch('src.db.ProdutoDaoOrm.CategoriaModel')
+    def test_adicionar_produto_erro_categoria_nao_encontrada(self, mock_categoria_model):
+        mock_categoria_model.objects.get.side_effect = Exception('Categoria não foi encontrada.')
+        dicionario_produto = {
+            'id': uuid4(),
+            'descricao': 'Descricao do produto de teste',
+            'nome': 'Produto de Teste',
+            'preco': 10.90,
+            'imagem_url': 'http://teste.com.br/teste',
+            'id_categoria': uuid4()
+        }
+        produto = ProdutoFactory.from_dict(dicionario_produto)
+        self.assertRaisesRegex(Exception, 'Categoria não foi encontrada.', ProdutoDaoOrm.adicionar_produto, produto)

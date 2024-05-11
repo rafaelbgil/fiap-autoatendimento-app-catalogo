@@ -5,6 +5,7 @@ from api.models import Categoria as CategoriaModel
 from src.domain.entities.Produto import Produto
 from src.uitls.validar_uuid import validar_uuid
 
+
 class ProdutoDaoOrm(ProdutoDaoInterface):
     @staticmethod
     def obter_produto(id: str) -> Produto:
@@ -45,7 +46,10 @@ class ProdutoDaoOrm(ProdutoDaoInterface):
         list_produtos_orm = categoria_orm.produto_set.all()
         lista_produtos = []
         for produto_orm in list_produtos_orm:
-            lista_produtos.append(ProdutoFactory.from_dict(dicionario_produto=produto_orm.__dict__))
+            produto = produto_orm.__dict__
+            produto['id_categoria'] = produto_orm.categoria_id
+            #lista_produtos.append(ProdutoFactory.from_dict(dicionario_produto=produto_orm.__dict__))
+            lista_produtos.append(ProdutoFactory.from_dict(dicionario_produto=produto))
 
         return lista_produtos
 
