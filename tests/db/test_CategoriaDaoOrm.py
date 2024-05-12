@@ -41,7 +41,7 @@ class TestCategoriaDaoOrm(unittest.TestCase):
         mock_categoria_model_save.save.return_value = None
         retorno = CategoriaDaoOrm.adicionar_categoria(categoria)
         self.assertIsInstance(retorno, Categoria)
-        
+
 
     @patch('src.db.CategoriaDaoOrm.CategoriaModel')
     def test_listar_categorias(self, mock_categoria_model):
