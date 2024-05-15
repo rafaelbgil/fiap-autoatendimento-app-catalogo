@@ -4,3 +4,4 @@ sql_app.db
 db.sqlite3
 migrations/
 .idea/
+plain.output
