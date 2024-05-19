@@ -12,7 +12,8 @@ omit =
     apps.py
     *Interface.py
     manage.py
-    features/*
+    ./features/*
+    tests/*
 [report]
 exclude_lines =
     @abstract
