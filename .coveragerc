@@ -1,19 +1,17 @@
 [run]
 omit =
-    @abstract
     ./tests/*
     ./src/gateway/*
     */migrations/*
     settings.py
-    */asgi.py
-    */wsgi.py
-    autoatendimento/wsgi.py
+    asgi.py
     admin.py
     apps.py
     *Interface.py
+    */asgi.py
+    */wsgi.py
     manage.py
-    ./features/*
-    tests/*
+    docker-auxiliar-files/*
 [report]
 exclude_lines =
-    @abstract
+    @abstractmethod
