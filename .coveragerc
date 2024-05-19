@@ -12,6 +12,8 @@ omit =
     */wsgi.py
     manage.py
     docker-auxiliar-files/*
+    ./docker-auxiliar-files/*
+    ./features/*
 [report]
 exclude_lines =
     @abstractmethod
