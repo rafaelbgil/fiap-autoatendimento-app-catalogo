@@ -1,0 +1,495 @@
+openapi: 3.0.3
+info:
+  title: Api Autoatendimento Lanchonete - Catalogo
+  version: 1.0.0
+  description: Api de Autoatendimento de lanchonetes - Fiap Pos-tech - Catalogo
+paths:
+  /categoria/:
+    get:
+      operationId: categoria_list
+      description: Api para listar categorias
+      summary: Obtém lista de categorias
+      tags:
+      - categoria
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categoria'
+              examples:
+                ExemploDeUso:
+                  value:
+                  - id: 42f0ad6e-b5a2-4b40-940b-51d4c62a9b24
+                    nome: doces
+                  summary: Exemplo de uso
+          description: ''
+    post:
+      operationId: categoria_create
+      description: Api para adicionar categoria
+      summary: Adiciona nova categoria
+      tags:
+      - categoria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoriaRequest'
+            examples:
+              ExemploDeUso:
+                value:
+                  nome: salgados
+                summary: Exemplo de uso
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoriaRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoriaRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+              examples:
+                ExemploDeUso:
+                  value:
+                    id: 42f0ad6e-b5a2-4b40-940b-51d4c62a9b24
+                    nome: salgados
+                  summary: Exemplo de uso
+          description: ''
+  /categoria/{id}/:
+    get:
+      operationId: categoria_retrieve
+      description: Obtém dados de categoria selecionada
+      summary: Obtém dados de categoria selecionada
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - categoria
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+              examples:
+                ExemploDeUso:
+                  value:
+                    id: 42f0ad6e-b5a2-4b40-940b-51d4c62a9b24
+                    nome: salgados
+                  summary: Exemplo de uso
+          description: ''
+    delete:
+      operationId: categoria_destroy
+      description: Remove categoria selecionada
+      summary: Remove categoria selecionada
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - categoria
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /produto/:
+    get:
+      operationId: produto_list
+      description: Api para obter lista de **produtos**
+      summary: Obtém lista de produtos
+      tags:
+      - produto
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+          description: ''
+    post:
+      operationId: produto_create
+      description: Api para cadastrar **produto**
+      summary: Adiciona novo produto
+      tags:
+      - produto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+          description: ''
+  /produto/{id}/:
+    get:
+      operationId: produto_retrieve
+      description: Api para visualizar dados de produto selecionado
+      summary: Obtém dados de produto selecionado
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - produto
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: Json Response
+        '400':
+          description: Validation error
+    put:
+      operationId: produto_update
+      description: Api para atualizar produto selecionado
+      summary: Atualiza produto selecionado
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - produto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+          description: ''
+    delete:
+      operationId: produto_destroy
+      description: Api para remover produto selecionado
+      summary: Remove produto selecionado
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - produto
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /produto/findByCategoria/{categoria}/:
+    get:
+      operationId: produto_findByCategoria_retrieve
+      description: Api para obter lista de produtos por categoria
+      summary: Obtém dados de produto selecionado
+      parameters:
+      - in: path
+        name: categoria
+        schema:
+          type: string
+        required: true
+      tags:
+      - produto
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: Lista de Produtos
+        '404':
+          description: Categoria não encontrada
+  /schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 40
+      required:
+      - id
+      - nome
+    CategoriaRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          minLength: 1
+          maxLength: 40
+      required:
+      - nome
+    Produto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 40
+        preco:
+          type: number
+          format: double
+        id_categoria:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          maxLength: 1024
+        imagem_url:
+          type: string
+          maxLength: 1024
+      required:
+      - id
+      - nome
+      - preco
+    ProdutoRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          minLength: 1
+          maxLength: 40
+        preco:
+          type: number
+          format: double
+        id_categoria:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          minLength: 1
+          maxLength: 1024
+        imagem_url:
+          type: string
+          minLength: 1
+          maxLength: 1024
+      required:
+      - nome
+      - preco
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
