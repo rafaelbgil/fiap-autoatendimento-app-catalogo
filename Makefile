@@ -1,3 +1,5 @@
+DJANGO_KEY ?= dsadsadada
+export DJANGO_KEY
 test:
 	coverage run --source=./  ./manage.py test 
 	coverage html
