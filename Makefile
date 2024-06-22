@@ -11,6 +11,9 @@ test-xml:
 run:
 	python manage.py runserver 0.0.0.0:8090
 
+run-prod:
+	uwsgi --ini uwsgi.ini
+
 update-db:
 	python manage.py makemigrations
 	python manage.py migrate
