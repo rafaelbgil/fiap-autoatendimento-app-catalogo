@@ -125,7 +125,7 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Api Autoatendimento Lanchonete - Catalogo',
+    'TITLE': 'Api Catalogo de lanchonete',
     'DESCRIPTION': 'Api de Autoatendimento de lanchonetes - Fiap Pos-tech - Catalogo',
     'VERSION': '1.0.0',
     'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
